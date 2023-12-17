@@ -20,46 +20,74 @@ namespace Othello
         /// key for disc color and value for which player wants to play
         /// </summary>
         public Dictionary<Disc, IPlayer> Players { get; private set; }
-        
-        // array of position disc on board will contain disc white, black and none
+
         /// <summary>
-        /// 
+        /// contains information about disks on the board
         /// </summary>
         public Disc[,] Board { get; }
         
-        //curent player turn
+        /// <summary>
+        /// get current player
+        /// </summary>
         public IPlayer CurrentPlayer { get { return Players[CurrentDisc]; }}
         
-        // curent colour disc turn
+        /// <summary>
+        /// get current disc
+        /// </summary>
         public Disc CurrentDisc { get; private set; }
-        
-        // simpan total disc masing-masing warna
+
+        /// <summary>
+        /// contains how many each color disc on board
+        /// </summary>
         public Dictionary<Disc, int> CountDisc { get; }
+
+        /// <summary>
+        /// contain indicator for each color disc can move at current turn
+        /// </summary>
+        public Dictionary<Disc, int> CountPossibelMove { get; private set; }
         
-        // simpan jumlah kemungkinan legalmove
-        private Dictionary<Disc, int> _countPossibelMove = new Dictionary<Disc, int>();
-        
-        // for who is winner
+        /// <summary>
+        /// contain who player win
+        /// </summary>
         public Disc Winner { get; private set; }
         
-        // store which position can move disc and who enemy disc will outflanked
+        /// <summary>
+        /// key is position will be legal move and value is which enemy disc outflanked
+        /// </summary>
         public Dictionary<Position, List<Position>> LegalMoves { get; private set; }
-        
+
+        /// <summary>
+        /// contain game status
+        /// </summary>
         public GameStatus GameStat { get; private set; }
 
+        /// <summary>
+        /// list position for enemy disc outflanked
+        /// </summary>
         private List<Position> _outflanked = new List<Position>();
 
+        /// <summary>
+        /// delegate for log move
+        /// </summary>
         public Action<IPlayer, Disc> OnPlayerUpdate;
-        
+
+        /// <summary>
+        /// delegate for UI update after legal move on board
+        /// </summary>
         public Action<Disc, Position, List<Position>, List<Position>> OnDiscUpdate;
 
+        /// <summary>
+        /// delegat for UI update 
+        /// </summary>
         public Action<List<Position>> OnPossibleMove;
 
         public GameController()
         {
             Players = new Dictionary<Disc, IPlayer>();
+
             Rows = 8;
             Cols = 8;
+
             // put disc on board
             Board = new Disc[Rows, Cols];
             Board[3, 3] = Disc.White;
@@ -74,13 +102,14 @@ namespace Othello
                 { Disc.Black, 0 }
             };
 
+            CountPossibelMove = new Dictionary<Disc, int>();
+            CountPossibelMove[Disc.Black] = 0;
+            CountPossibelMove[Disc.White] = 0;
+
             LegalMoves = new Dictionary<Position, List<Position>>(); 
 
             GameStat = GameStatus.NoReady;
             CurrentDisc = Disc.None;
-            _countPossibelMove[Disc.Black] = 0;
-            _countPossibelMove[Disc.White] = 0;
-
         }
 
         public bool AddPlayer(IPlayer player, Disc disc)
