@@ -7,17 +7,24 @@ namespace Othello
     public class GameController
     {
         /// <summary>
-        /// 
+        /// total row at board
         /// </summary>
-        public const int rows = 8;
-        
-        // size colomn board
-        public const int cols = 8;
-        
-        // list player and pick colour disc
+        public int Rows { get; private set; }
+
+        /// <summary>
+        /// total colomn at board
+        /// </summary>
+        public int Cols { get; private set; }
+
+        /// <summary>
+        /// key for disc color and value for which player wants to play
+        /// </summary>
         public Dictionary<Disc, IPlayer> Players { get; private set; }
         
         // array of position disc on board will contain disc white, black and none
+        /// <summary>
+        /// 
+        /// </summary>
         public Disc[,] Board { get; }
         
         //curent player turn
@@ -51,9 +58,10 @@ namespace Othello
         public GameController()
         {
             Players = new Dictionary<Disc, IPlayer>();
-
+            Rows = 8;
+            Cols = 8;
             // put disc on board
-            Board = new Disc[rows, cols];
+            Board = new Disc[Rows, Cols];
             Board[3, 3] = Disc.White;
             Board[3, 4] = Disc.Black;
             Board[4, 3] = Disc.Black;
@@ -242,7 +250,7 @@ namespace Othello
 
         private bool IsInsideBoard(int r, int c)
         {
-            return r >= 0 && r < rows && c >= 0 && c < cols;
+            return r >= 0 && r < Rows && c >= 0 && c < Cols;
         }
 
         private List<Position> OutflankedInDir(Position pos, Disc disc, int rDelta, int cDelta)
@@ -306,9 +314,9 @@ namespace Othello
         public Dictionary<Position, List<Position>> FindLegalMoves()
         {
             LegalMoves = new Dictionary<Position, List<Position>>();
-            for (int r = 0; r < rows; r++)
+            for (int r = 0; r < Rows; r++)
             {
-                for (int c = 0; c < cols; c++)
+                for (int c = 0; c < Cols; c++)
                 {
                     Position position = new Position(r, c);
                     if (IsMoveLegal(CurrentDisc, position) && (GameStat == GameStatus.Start || GameStat == GameStatus.OnGoing))
