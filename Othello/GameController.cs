@@ -6,8 +6,10 @@ namespace Othello
 {
     public class GameController
     {
-        // size row board
-        public int rows = 8;
+        /// <summary>
+        /// 
+        /// </summary>
+        public const int rows = 8;
         
         // size colomn board
         public const int cols = 8;
