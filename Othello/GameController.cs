@@ -114,9 +114,9 @@ namespace Othello
             GameStat = GameStatus.NoReady;
             CurrentDisc = Disc.None;
         }
-        #endregion 
+        #endregion
 
-
+        #region MethodSetupGame
         /// <summary>
         /// set size board have square shape that row and col have same value. please call
         /// SetDiscOnBoard() for replacing disc on board
@@ -408,7 +408,9 @@ namespace Othello
                 return null;
             }
         }
+        #endregion
 
+        #region MethodMidGame
         /// <summary>
         /// checking if position worth to test
         /// </summary>
@@ -593,7 +595,9 @@ namespace Othello
             CountDisc[CurrentDisc.Opponent()] -= outflanked;
 
         }
+        #endregion
 
+        #region MethodLastGame
         /// <summary>
         /// find winner
         /// </summary>
@@ -633,6 +637,7 @@ namespace Othello
                 return false;
             }
         }
+        #endregion
 
     }
 }
