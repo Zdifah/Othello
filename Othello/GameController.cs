@@ -6,6 +6,7 @@ namespace Othello
 {
     public class GameController
     {
+        #region Field
         /// <summary>
         /// total row at board
         /// </summary>
@@ -80,7 +81,9 @@ namespace Othello
         /// update for UI legal move position list
         /// </summary>
         public Action<List<Position>> OnPossibleMove;
+        #endregion
 
+        #region Constructor
         public GameController()
         {
             Players = new Dictionary<Disc, IPlayer>();
@@ -111,6 +114,8 @@ namespace Othello
             GameStat = GameStatus.NoReady;
             CurrentDisc = Disc.None;
         }
+        #endregion 
+
 
         /// <summary>
         /// set size board have square shape that row and col have same value. please call
