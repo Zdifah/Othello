@@ -10,5 +10,20 @@
             Row = row;
             Col = col;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Position other)
+            {
+                return Row == other.Row && Col == other.Col; 
+            }
+
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return 8 * Row + Col;
+        }
     }
 }

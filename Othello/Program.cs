@@ -27,11 +27,10 @@ namespace Othello
             while (othelloGame.GameStat == GameStatus.Start || othelloGame.GameStat == GameStatus.OnGoing)
             {
                 var findLegalMoves = othelloGame.FindLegalMoves();
-                Console.WriteLine($"Giliran Disk {othelloGame.CurrentDisc}: ");
-
                 consoleUI.ShowGame();
 
                 Console.WriteLine($"Giliran disc {othelloGame.CurrentDisc}");
+
                 foreach (var item in findLegalMoves)
                 {
                     Console.Write($"Disc {othelloGame.CurrentDisc} ({item.Key.Row},{item.Key.Col}) bisa memakan Disc {othelloGame.CurrentDisc.Opponent()} : ");
